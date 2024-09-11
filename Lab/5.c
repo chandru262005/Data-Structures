@@ -89,9 +89,25 @@ void split(int a[],int n)
 
 void rotate(int a[],int n)
 {
-    int rot,i;
+    int rot,i,dir;
+    printf("Enter the direction:\n0.Right\n1.Left\n");
+    scanf("%d",&dir);
     printf("Enter no of rotations:");
     scanf("%d",&rot);
+    if(dir)
+    {
+    for(i=0;i<rot;i++)
+    {
+        int temp=a[n-1],j=n-1;
+        while(j>0)
+        {
+            a[j]=a[j-1];
+            j--;;
+        }
+        a[0]=temp;
+    }
+    }
+    else{
     for(i=0;i<rot;i++)
     {
         int temp=a[0],j=0;
@@ -102,28 +118,56 @@ void rotate(int a[],int n)
         }
         a[n-1]=temp;
     }
+    }
     display(a,n);
 }
-
+void copy(int a[],int n)
+{
+    printf("Copied array:\n");
+    display(a,n);
+}
+void swap(int a[],int n)
+{
+    int i,j,temp;
+    printf("Enter the indexes to be swapped:");
+    scanf("%d %d",&i,&j);
+    temp=a[i];
+    a[i]=a[j];
+    a[j]=temp;
+    display(a,n);
+}
+void update(int a[],int n)
+{
+    int i,j;
+    printf("Enter the index and the element:");
+    scanf("%d %d",&i,&j);
+    a[i]=j;
+    display(a,n);
+}
 int main()
 {
-    int n,i,ch;
+    int *a,n,i,ch,cho;
+    label:
+    printf("1.Initialization\n2.Delete\n3.Merge\n4.Split\n5.Rotate\n6.Display\n7.Copy\n8.Swap\n9.Traverse\n10.Updating\n11.Insertion\nEnter choice:");
+    scanf("%d",&ch);
     printf("Enter the no of elements:");
     scanf("%d",&n);
-    int a[n];
+    *a=(int*)malloc(n*sizeof(int));
     for(i=0;i<n;i++)
     {
         printf("Enter element:");
         scanf("%d",&a[i]);
     }
-    printf("1.Insert\n2.Delete\n3.Merge\n4.Split\n5.Rotate\n6.Display\nEnter choice:");
-    scanf("%d",&ch);
+
+
     switch(ch)
     {
     case 1:
-            insertion(a,n);
-            break;
-
+       {
+        printf("1.Initialization\n2.Delete\n3.Merge\n4.Split\n5.Rotate\n6.Display\n7.Copy\n8.Swap\n9.Traverse\n10.Updating\n11.Insertion\nEnter choice:");
+        scanf("%d",&ch);
+           break;
+       }
     case 2:
         {
             deletion(a,n);
@@ -147,13 +191,43 @@ int main()
         }
     case 6:
         {
+            display(a,n);    //traversing and displaying
+            break;
+        }
+    case 7:
+        {
+            copy(a,n);
+            break;
+        }
+    case 8:
+        {
+            swap(a,n);
+            break;
+        }
+    case 9:
+        {
             display(a,n);
             break;
+        }
+    case 10:
+        {
+            update(a,n);
+            break;
+        }
+    case 11:
+        {
+            insertion(a,n);
+            break;
+
         }
     default:
         {
             printf("Invalid choice");
         }
     }
+    printf("continue:");
+    scanf("%d",&cho);
+    if(cho)
+    goto label;
     return 0;
 }
